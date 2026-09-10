@@ -306,41 +306,44 @@ function wasdPressed(offset) {
   if (newTileLocation < 0 || newTileLocation > GLOBWIDTH*GLOBHEIGHT) return
   
   // check if this tile is free on the ICON layer
-  var maybeFreeTile = iconLayer[newTileLocation]
-  var iconLayerFree = (maybeFreeTile == "--")
+  if (iconLayer[newTileLocation] !== "--") return
   
   // check if this tile is free on the BASE layer
-  maybeFreeTile = levelArrs[level][newTileLocation]
+  var maybeFreeTile = levelArrs[level][newTileLocation]
   
   // all empty tiles, including corner tiles
-  const emptyTiles = ["--", "1a","1b","1c","1d"]
+  const emptyTileArr = ["--","1a","1b","1c","1d","05"]
   
-  // subsequent logic
-  var baseLayerFree
-  if (maybeFreeTile == "05") { // moving onto plate tile
-    if (iconLayerFree === true) {
-      // "just passing through!"
-      baseLayerFree = true
-    }
-    
-  } else {
-    baseLayerFree = (emptyTiles.includes(maybeFreeTile))
-  }
-  
-  if (baseLayerFree == true && iconLayerFree == true) {
-    // it IS free:
-    
-    // put the icon in its new place
-    iconLayer[newTileLocation] = heldItem.code
-    
-    // clear old one
-    iconLayer[oldTileLocation] = "--"
-    
-    // update heldItem.tilePos
-    heldItem.tilePos = newTileLocation
-    
-    moveCount++
-  } // it ISN'T free: do nothing :3
+  // subsequent logic:
+  // if the old tile is a corner piece, apply walls manually
+  var oldTile = levelArrs[level][oldTileLocation]
+  if (emptyTileArr.includes(oldTile)) {
+    if (oldTile == "1a" && (offset == -GLOBWIDTH || offset == -1)) return
+    if (oldTile == "1b" && (offset == -GLOBWIDTH || offset == 1)) return
+    if (oldTile == "1c" && (offset == GLOBWIDTH || offset == -1)) return
+    if (oldTile == "1d" && (offset == GLOBWIDTH || offset == 1)) return
+  } else return
+
+  // is the new tile okay to land on?
+  if (emptyTileArr.includes(maybeFreeTile)) {
+    if (maybeFreeTile == "1a" && (offset == GLOBWIDTH || offset == 1)) return
+    if (maybeFreeTile == "1b" && (offset == GLOBWIDTH || offset == -1)) return
+    if (maybeFreeTile == "1c" && (offset == -GLOBWIDTH || offset == 1)) return
+    if (maybeFreeTile == "1d" && (offset == -GLOBWIDTH || offset == -1)) return
+  } else return
+
+  // okay neat, both layers are free
+
+  // put the icon in its new place
+  iconLayer[newTileLocation] = heldItem.code
+
+  // clear old one
+  iconLayer[oldTileLocation] = "--"
+
+  // update heldItem.tilePos
+  heldItem.tilePos = newTileLocation
+
+  moveCount++
   
   // re-render both layers affected
   renderIconLayer()
