@@ -751,7 +751,7 @@ const moveCountDict = {
   7: 28,
   8: 78,
   9: 37, // 38 is possible
-  10: 57, // 66 is the next realistic count
+  10: 56, // 57 is possible!
   11: 24,
   12: 36,
   13: 92, // 98, 110 both very possible
