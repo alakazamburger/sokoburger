@@ -749,7 +749,7 @@ const moveCountDict = {
   5: 48,
   6: 14,
   7: 28,
-  8: 78,
+  8: 77, // 78 is possible!
   9: 37, // 38 is possible
   10: 56, // 57 is possible!
   11: 24,
