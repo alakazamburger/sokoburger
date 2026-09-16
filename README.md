@@ -1,9 +1,9 @@
 # sokoburger!
-- for computer science a level
+- originally for computer science a level
 - soko- as in [Sokoban](https://en.wikipedia.org/wiki/Sokoban)
 - -burger as in [burger](https://en.wikipedia.org/wiki/Hamburger)
 ## in progress!
 - eventually this will be finished (maybe (no promises))
-- for now it will probably contain many bugs (the burger parts attract them)
+- currently it might contain bugs (the burger parts attract them)
 ### patience is a virtue
-- check back here in a few months, this should be much more polished
+- check back here every once in a while, you should see some updates
